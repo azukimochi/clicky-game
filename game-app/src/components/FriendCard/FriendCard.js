@@ -20,7 +20,7 @@ const FriendCard = props => (
       </ul>
     </div>
     <span onClick={() => 
-      props.removeFriend(props.id)
+      props.validateForDupes(props.id)
       // props.shuffleArray(props.friend)
       } 
       className="remove">

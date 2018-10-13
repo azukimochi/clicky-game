@@ -9,42 +9,71 @@ class App extends Component {
   state = {
     friends: friends,
     score: 0,
-    clickedFriends: friends
+    unClickedFriends: friends
 
   };
 
-  
+  validateForDupes = id => {
+    console.log(id);
+    let numOfDupes = 0;
+    for (var i=0; i<this.state.unClickedFriends.length; i++) {
+      if (this.state.unClickedFriends[i].id === id) {
+        numOfDupes++;
+      }
+    }
+    console.log("# of dupes: " + numOfDupes)
+    if (numOfDupes === 1) {
+      console.log("exists");
+      this.removeFriend(id);
+    } else if (numOfDupes === 0) {
+      console.log("doesn't exist");
+      this.endGame();
+    }
+    numOfDupes = 0;
+  }
+
   removeFriend = id => {
     console.log("ID of the character to remove: " + id);
-    const removedFriends = this.state.clickedFriends.filter(friend => friend.id !== id);
+    const removedFriends = this.state.unClickedFriends.filter(friend => friend.id !== id);
     console.log(removedFriends);
-    this.shuffleArray(removedFriends, friends);
+    let score = this.state.score;
+    score++;
+    this.shuffleArray(removedFriends, score);
   };
   
-  shuffleArray = (removedFriends, friends) => {
-    for (let i = this.state.friends.length - 1; i > 0; i--) {
+  shuffleArray = (removedFriends, score) => {
+    const shuffledFriends = this.state.friends;
+    for (let i = shuffledFriends.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [friends[i], friends[j]] = [friends[j], friends[i]]; 
+      [shuffledFriends[i], shuffledFriends[j]] = [shuffledFriends[j], shuffledFriends[i]]; 
     }
     this.setState({
-      friends: friends,
-      clickedFriends:removedFriends
+      friends: shuffledFriends,
+      unClickedFriends:removedFriends,
+      score: score
     });
-    // console.log("Friends: " + JSON.stringify(this.state.friends));
   };
+
+  endGame = () => {
+    console.log("game ended");
+    this.setState({
+      friends: friends,
+      score: 0,
+      unClickedFriends: friends
+    })
+  }
   
   // Map over this.state.friends and render a FriendCard component for each friend object
   render() {
-    console.log("Clicked friends: " + JSON.stringify(this.state.clickedFriends));
-    // console.log(friends);
+    console.log("Clicked friends: " + JSON.stringify(this.state.unClickedFriends));
+    console.log("score: " + this.state.score)
+    // console.log("Friends " + friends);
     return (
       <Wrapper>
         <Title>Friends List</Title>
         {this.state.friends.map(friend => (
           <FriendCard
-            removeFriend={this.removeFriend}
-            shuffleArray = {this.shuffleArray}
-            friend={friends}
+            validateForDupes = {this.validateForDupes}
             id={friend.id}
             key={friend.id}
             name={friend.name}
