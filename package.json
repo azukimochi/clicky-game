@@ -1,13 +1,13 @@
 {
-  "name": "game-app",
+  "name": "clicky-game",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://azukimochi.github.io/",
+  "homepage": "https://azukimochi.github.io/clicky-game/",
   "dependencies": {
-    "gh-pages": "^2.0.1",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-scripts": "2.0.4"
+    "react-scripts": "2.0.4",
+    "gh-pages": "2.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
