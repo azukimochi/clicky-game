@@ -3,6 +3,7 @@ import FriendCard from "./components/FriendCard";
 import Wrapper from "./components/Wrapper";
 import Title from "./components/Title";
 import friends from "./friends.json";
+import Nav from "./components/Nav";
 import "./App.css";
 
 class App extends Component {
@@ -70,6 +71,7 @@ class App extends Component {
     // console.log("Friends " + friends);
     return (
       <Wrapper>
+      <Nav>Score: {this.state.score}</Nav>
         <Title>Friends List</Title>
         {this.state.friends.map(friend => (
           <FriendCard
