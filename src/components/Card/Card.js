@@ -2,11 +2,12 @@ import React from "react";
 import "./Card.css";
 
 const Card = props => (
-  <div className="card">
+  <div onClick={() => props.validateForDupes(props.id)} 
+    className="card">
     <div className="img-container">
       <img alt={props.name} src={props.image} />
     </div>
-    <div className="content">
+    {/* <div className="content">
       <ul>
         <li>
           <strong>Name:</strong> {props.name}
@@ -19,12 +20,10 @@ const Card = props => (
         </li>
       </ul>
     </div>
-    <span onClick={() => 
-      props.validateForDupes(props.id)
-      } 
+    <span 
       className="remove">
       𝘅
-    </span>
+    </span> */}
   </div>
 );
 
