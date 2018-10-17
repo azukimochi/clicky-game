@@ -10,8 +10,9 @@ class App extends Component {
   state = {
     friends: friends,
     score: 0,
-    unClickedFriends: friends
-
+    unClickedFriends: friends,
+    topScore: 0,
+    blurb: "Click on unique characters to gain a point. If you click on a character that you've already selected, the game will end."
   };
 
   validateForDupes = id => {
@@ -28,7 +29,7 @@ class App extends Component {
       this.removeFriend(id);
     } else if (numOfDupes === 0) {
       console.log("doesn't exist");
-      this.endGame();
+      this.endGame(this.state.score);
     }
     numOfDupes = 0;
   }
@@ -51,28 +52,38 @@ class App extends Component {
     this.setState({
       friends: shuffledFriends,
       unClickedFriends:removedFriends,
-      score: score
+      score: score,
+      blurb: "Way to go! +1 point!"
     });
   };
 
-  endGame = () => {
-    console.log("game ended");
-    this.setState({
-      friends: friends,
-      score: 0,
-      unClickedFriends: friends
-    })
+  endGame = score => {
+    console.log("game ended and the match's score is: " + score);
+    if (score > this.state.topScore) {
+      this.setState({
+        topScore: score,
+        friends: friends,
+        score: 0,
+        unClickedFriends: friends,
+        blurb: "You lose. Try again!"
+      }) 
+    } else {
+      this.setState({
+        friends: friends,
+        score: 0,
+        unClickedFriends: friends,
+        blurb: "You lose. Try again!"
+      })
+    }
   }
   
-  // Map over this.state.friends and render a FriendCard component for each friend object
   render() {
     console.log("Clicked friends: " + JSON.stringify(this.state.unClickedFriends));
     console.log("score: " + this.state.score)
-    // console.log("Friends " + friends);
     return (
       <Wrapper>
-      <Nav>Score: {this.state.score}</Nav>
-        <Title>Friends List</Title>
+      <Nav>Score: {this.state.score} Top Score: {this.state.topScore}</Nav>
+        <Title>{this.state.blurb}</Title>
         {this.state.friends.map(friend => (
           <FriendCard
             validateForDupes = {this.validateForDupes}
