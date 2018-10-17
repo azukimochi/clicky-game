@@ -1,87 +1,98 @@
 import React, { Component } from "react";
-import FriendCard from "./components/FriendCard";
+import Card from "./components/Card";
 import Wrapper from "./components/Wrapper";
-import Title from "./components/Title";
-import friends from "./friends.json";
+import Blurb from "./components/Blurb";
+import cards from "./card.json";
 import Nav from "./components/Nav";
 import "./App.css";
 
 class App extends Component {
   state = {
-    friends: friends,
+    cards: cards,
     score: 0,
-    unClickedFriends: friends
-
+    unClickedCards: cards,
+    topScore: 0,
+    blurb: "Click on unique characters to gain a point. If you click on a character that you've already selected, the game will end."
   };
 
   validateForDupes = id => {
     console.log(id);
     let numOfDupes = 0;
-    for (var i=0; i<this.state.unClickedFriends.length; i++) {
-      if (this.state.unClickedFriends[i].id === id) {
+    for (var i=0; i<this.state.unClickedCards.length; i++) {
+      if (this.state.unClickedCards[i].id === id) {
         numOfDupes++;
       }
     }
     console.log("# of dupes: " + numOfDupes)
     if (numOfDupes === 1) {
       console.log("exists");
-      this.removeFriend(id);
+      this.removeCard(id);
     } else if (numOfDupes === 0) {
       console.log("doesn't exist");
-      this.endGame();
+      this.endGame(this.state.score);
     }
     numOfDupes = 0;
   }
 
-  removeFriend = id => {
+  removeCard = id => {
     console.log("ID of the character to remove: " + id);
-    const removedFriends = this.state.unClickedFriends.filter(friend => friend.id !== id);
-    console.log(removedFriends);
+    const removedCards = this.state.unClickedCards.filter(card => card.id !== id);
+    console.log(removedCards);
     let score = this.state.score;
     score++;
-    this.shuffleArray(removedFriends, score);
+    this.shuffleArray(removedCards, score);
   };
   
-  shuffleArray = (removedFriends, score) => {
-    const shuffledFriends = this.state.friends;
-    for (let i = shuffledFriends.length - 1; i > 0; i--) {
+  shuffleArray = (removedCards, score) => {
+    const shuffledCards = this.state.cards;
+    for (let i = shuffledCards.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [shuffledFriends[i], shuffledFriends[j]] = [shuffledFriends[j], shuffledFriends[i]]; 
+      [shuffledCards[i], shuffledCards[j]] = [shuffledCards[j], shuffledCards[i]]; 
     }
     this.setState({
-      friends: shuffledFriends,
-      unClickedFriends:removedFriends,
-      score: score
+      cards: shuffledCards,
+      unClickedCards:removedCards,
+      score: score,
+      blurb: "Way to go! +1 point!"
     });
   };
 
-  endGame = () => {
-    console.log("game ended");
-    this.setState({
-      friends: friends,
-      score: 0,
-      unClickedFriends: friends
-    })
+  endGame = score => {
+    console.log("game ended and the match's score is: " + score);
+    if (score > this.state.topScore) {
+      this.setState({
+        topScore: score,
+        cards: cards,
+        score: 0,
+        unClickedCards: cards,
+        blurb: "You lose. Try again!"
+      }) 
+    } else {
+      this.setState({
+        cards: cards,
+        score: 0,
+        unClickedCards: cards,
+        blurb: "You lose. Try again!"
+      })
+    }
   }
   
-  // Map over this.state.friends and render a FriendCard component for each friend object
   render() {
-    console.log("Clicked friends: " + JSON.stringify(this.state.unClickedFriends));
+    console.log("Clicked cards: " + JSON.stringify(this.state.unClickedCards));
     console.log("score: " + this.state.score)
-    // console.log("Friends " + friends);
     return (
       <Wrapper>
-      <Nav>Score: {this.state.score}</Nav>
-        <Title>Friends List</Title>
-        {this.state.friends.map(friend => (
-          <FriendCard
+      <Nav>Score: {this.state.score} Top Score: {this.state.topScore}</Nav>
+        <Blurb>{this.state.blurb}</Blurb>
+        {this.state.cards.map(card => (
+          <Card
             validateForDupes = {this.validateForDupes}
-            id={friend.id}
-            key={friend.id}
-            name={friend.name}
-            image={friend.image}
-            occupation={friend.occupation}
-            location={friend.location}
+            id={card.id}
+            key={card.id}
+            name={card.name}
+            image={card.image}
+            occupation={card.occupation}
+            location={card.location}
           />
         ))}
       </Wrapper>
