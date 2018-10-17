@@ -4,9 +4,9 @@
   display: flex;
   flex-flow: row wrap;
   /* padding: 20px; */
-  justify-content: space-around;
+  justify-content: center;
   align-content: flex-start;
-  overflow: auto;
+  /* overflow: auto; */
   font-family: 'Amatic SC', cursive;
   /* background-image: url("../../images/crayonBG.jpg"); */
   

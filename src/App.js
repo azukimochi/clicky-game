@@ -81,8 +81,10 @@ class App extends Component {
     console.log("Clicked cards: " + JSON.stringify(this.state.unClickedCards));
     console.log("score: " + this.state.score)
     return (
+      <row>
+        <col-xl-12>
       <Wrapper>
-      <Nav>Score: {this.state.score} Top Score: {this.state.topScore}</Nav>
+      <Nav>Score: {this.state.score}   |   Top Score: {this.state.topScore}</Nav>
         <Blurb>{this.state.blurb}</Blurb>
         {this.state.cards.map(card => (
           <Card
@@ -96,6 +98,8 @@ class App extends Component {
           />
         ))}
       </Wrapper>
+      </col-xl-12>
+      </row>
     );
   }
 }
