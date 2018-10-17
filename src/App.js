@@ -91,10 +91,7 @@ class App extends Component {
             validateForDupes = {this.validateForDupes}
             id={card.id}
             key={card.id}
-            name={card.name}
             image={card.image}
-            occupation={card.occupation}
-            location={card.location}
           />
         ))}
       </Wrapper>

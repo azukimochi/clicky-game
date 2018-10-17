@@ -1,13 +1,9 @@
 .wrapper {
-  /* padding-top: 50px; */
   height: 100%;
   display: flex;
   flex-flow: row wrap;
-  /* padding: 20px; */
   justify-content: center;
   align-content: flex-start;
   /* overflow: auto; */
   font-family: 'Amatic SC', cursive;
-  /* background-image: url("../../images/crayonBG.jpg"); */
-  
 }
