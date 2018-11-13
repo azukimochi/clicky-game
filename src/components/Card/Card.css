@@ -47,3 +47,11 @@
 .card > .remove:hover {
   color: #d50000;
 }
+
+.card:hover {
+  transform: scale(1.07);
+}
+
+.card > .img-container:hover {
+background: coral;
+}

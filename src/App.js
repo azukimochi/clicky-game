@@ -4,7 +4,9 @@ import Wrapper from "./components/Wrapper";
 import Blurb from "./components/Blurb";
 import cards from "./card.json";
 import Nav from "./components/Nav";
+import Modal from "./components/Modal";
 import "./App.css";
+
 
 class App extends Component {
   state = {
@@ -95,6 +97,9 @@ class App extends Component {
           />
         ))}
       </Wrapper>
+
+      <Modal/>
+        
       </col-xl-12>
       </row>
     );
