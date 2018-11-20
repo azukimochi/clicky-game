@@ -2,7 +2,9 @@
   width: 100%;
   text-align: center;
   font-size: 3rem;
-  color: black;
+  /* color: black; */
   margin-bottom: 50px;
   margin-top: 150px;
+  -webkit-transition: color 2s; 
+  transition: color 2s;
 }

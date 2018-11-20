@@ -15,25 +15,27 @@ class App extends Component {
     unClickedCards: cards,
     topScore: 0,
     blurb: "Click on unique characters to gain a point. If you click on a character that you've already selected, the game will end.",
-    modalIsOpen: false
+    modalIsOpen: false,
+    blurbstyle: "",
+    defaultStyle: false
   };
 
   componentDidMount = () => {
-    this.setState({modalIsOpen: true});
-}
+    this.setState({ modalIsOpen: true });
+  }
 
-openModal = () => {
-this.setState({modalIsOpen: true});
-}
+  openModal = () => {
+    this.setState({ modalIsOpen: true });
+  }
 
-closeModal = () => {
-this.setState({modalIsOpen: false});
-}
+  closeModal = () => {
+    this.setState({ modalIsOpen: false });
+  }
 
   validateForDupes = id => {
     console.log(id);
     let numOfDupes = 0;
-    for (var i=0; i<this.state.unClickedCards.length; i++) {
+    for (var i = 0; i < this.state.unClickedCards.length; i++) {
       if (this.state.unClickedCards[i].id === id) {
         numOfDupes++;
       }
@@ -57,16 +59,16 @@ this.setState({modalIsOpen: false});
     score++;
     this.shuffleArray(removedCards, score);
   };
-  
+
   shuffleArray = (removedCards, score) => {
     const shuffledCards = this.state.cards;
     for (let i = shuffledCards.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [shuffledCards[i], shuffledCards[j]] = [shuffledCards[j], shuffledCards[i]]; 
+      [shuffledCards[i], shuffledCards[j]] = [shuffledCards[j], shuffledCards[i]];
     }
     this.setState({
       cards: shuffledCards,
-      unClickedCards:removedCards,
+      unClickedCards: removedCards,
       score: score,
       blurb: "Way to go! +1 point!"
     });
@@ -81,7 +83,7 @@ this.setState({modalIsOpen: false});
         score: 0,
         unClickedCards: cards,
         blurb: "You lose. Try again!"
-      }) 
+      })
     } else {
       this.setState({
         cards: cards,
@@ -92,41 +94,89 @@ this.setState({modalIsOpen: false});
     }
   }
   
+  test = event => {
+    event.preventDefault();
+    const correctStyle = {
+      color: 'blue',
+      transition: 'opacity 3s',
+      opacity: 0
+    }
+    this.setState({
+      blurbStyle: correctStyle,
+      defaultStyle: false
+    })
+   setTimeout(() => this.setState({
+     defaultStyle: true
+   }), 1000)
+  }
+
+  test2 = event => {
+    event.preventDefault();
+    const correctStyle = {
+      color: 'red',
+      transition: 'opacity 3s',
+      opacity: 0
+    }
+    this.setState({
+      blurbStyle: correctStyle,
+      defaultStyle: false
+    })
+   setTimeout(() => this.setState({
+     defaultStyle: true
+   }), 1000)
+  }
+
+
   render() {
     console.log("Clicked cards: " + JSON.stringify(this.state.unClickedCards));
     console.log("score: " + this.state.score)
+    
+    const defaultStyle = {
+      color: 'black',
+      opacity: 1
+    }
 
     return (
       <row>
         <col-xl-12>
 
-      <Wrapper>
-      <Nav
-      score={this.state.score}
-      topScore={this.state.topScore}
-      openModal={this.openModal}
-      />
-      <Blurb>{this.state.blurb}</Blurb>
-      {this.state.cards.map(card => (
-        
-        <Card
-        validateForDupes = {this.validateForDupes}
-        id={card.id}
-        key={card.id}
-        image={card.image}
-        />
-        
-      ))}
-    </Wrapper>
+          <Wrapper>
+            <Nav
+              score={this.state.score}
+              topScore={this.state.topScore}
+              test={this.test}
+              test2={this.test2}
+            />
+          {this.state.defaultStyle ? 
+            <Blurb 
+            style={defaultStyle}
+            blurb={this.state.blurb}
+            /> 
+            :
+            <Blurb 
+            style={this.state.blurbStyle}
+            blurb={this.state.blurb}
+            /> 
+          }
+
+            {this.state.cards.map(card => (
+
+              <Card
+                validateForDupes={this.validateForDupes}
+                id={card.id}
+                key={card.id}
+                image={card.image}
+              />
+            ))}
+          </Wrapper>
+
+          <Modal
+            modalIsOpen={this.state.modalIsOpen}
+            closeModal={this.closeModal}
+          />
 
 
-    <Modal
-    modalIsOpen={this.state.modalIsOpen}
-    closeModal={this.closeModal}
-    />
-    
-        
-      </col-xl-12>
+        </col-xl-12>
       </row>
 
 
