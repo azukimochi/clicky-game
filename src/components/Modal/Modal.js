@@ -13,40 +13,17 @@ const customStyles = {
     }
   };
 
-class modal extends Component {
+const modal = props => (
 
-    state = {
-        modalIsOpen: false
-    }
-
-    componentDidMount = () => {
-        this.setState({modalIsOpen: true});
-    }
-
-openModal = () => {
-    this.setState({modalIsOpen: true});
-  }
-
-  afterOpenModal = () => {
-    this.subtitle.style.color = '#f00';
-  }
-
-  closeModal = () => {
-    this.setState({modalIsOpen: false});
-  }
-
-  render() {
-      return (
       <Modal
-      isOpen={this.state.modalIsOpen}
-      onAfterOpen={this.afterOpenModal}
-      onRequestClose={this.closeModal}
+      isOpen={props.modalIsOpen}
+      onRequestClose={props.closeModal}
       style={customStyles}
       contentLabel="Example Modal"
       >
       
-      <h2 ref={subtitle => this.subtitle = subtitle}>Hello</h2>
-      <button onClick={this.closeModal}>close</button>
+      <h2>Hello</h2>
+      <button onClick={props.closeModal}>close</button>
       <div>I am a modal</div>
       <form>
         <input />
@@ -58,8 +35,5 @@ openModal = () => {
       </Modal>
 
       )
-  }
-  
-};
 
 export default modal;

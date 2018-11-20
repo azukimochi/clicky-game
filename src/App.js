@@ -14,8 +14,21 @@ class App extends Component {
     score: 0,
     unClickedCards: cards,
     topScore: 0,
-    blurb: "Click on unique characters to gain a point. If you click on a character that you've already selected, the game will end."
+    blurb: "Click on unique characters to gain a point. If you click on a character that you've already selected, the game will end.",
+    modalIsOpen: false
   };
+
+  componentDidMount = () => {
+    this.setState({modalIsOpen: true});
+}
+
+openModal = () => {
+this.setState({modalIsOpen: true});
+}
+
+closeModal = () => {
+this.setState({modalIsOpen: false});
+}
 
   validateForDupes = id => {
     console.log(id);
@@ -82,26 +95,41 @@ class App extends Component {
   render() {
     console.log("Clicked cards: " + JSON.stringify(this.state.unClickedCards));
     console.log("score: " + this.state.score)
+
     return (
       <row>
         <col-xl-12>
-      <Wrapper>
-      <Nav>Score: {this.state.score}   |   Top Score: {this.state.topScore}</Nav>
-        <Blurb>{this.state.blurb}</Blurb>
-        {this.state.cards.map(card => (
-          <Card
-            validateForDupes = {this.validateForDupes}
-            id={card.id}
-            key={card.id}
-            image={card.image}
-          />
-        ))}
-      </Wrapper>
 
-      <Modal/>
+      <Wrapper>
+      <Nav
+      score={this.state.score}
+      topScore={this.state.topScore}
+      openModal={this.openModal}
+      />
+      <Blurb>{this.state.blurb}</Blurb>
+      {this.state.cards.map(card => (
+        
+        <Card
+        validateForDupes = {this.validateForDupes}
+        id={card.id}
+        key={card.id}
+        image={card.image}
+        />
+        
+      ))}
+    </Wrapper>
+
+
+    <Modal
+    modalIsOpen={this.state.modalIsOpen}
+    closeModal={this.closeModal}
+    />
+    
         
       </col-xl-12>
       </row>
+
+
     );
   }
 }
