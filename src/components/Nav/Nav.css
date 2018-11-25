@@ -6,7 +6,7 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 10px 20px 0 rgba(0, 0, 0, 0.19);
     width: 100%;
     margin-top: auto;
-    padding-top: 11px;
+    padding-top: 20px;
     padding-right: 10px;
     text-align: right;
     font-size: -webkit-xxx-large;
@@ -15,16 +15,16 @@
 #instructionsBtn {
     float: left;
     margin-left: 15px;
-    margin-top: 11px;
+    margin-top: 3px;
 }
 
-@media only screen and (max-width: 430px) {
+@media only screen and (max-width: 663px) {
     .nav {
-        font-size: 40px;
-        padding-top: 20px;
+        font-size: 22px;
+        padding-top: 34px;
     }
 
     #instructionsBtn {
-        margin-top: 5px;
+        margin-top: -11px;
     }
 }
