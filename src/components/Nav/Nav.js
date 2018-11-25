@@ -3,13 +3,8 @@ import "./Nav.css";
 
 const Nav = props => (
 <h1 className="nav">
-<button className="btn btn-success"
-onClick={props.test}>
-Instructions
-</button>
-
-<button className="btn btn-danger"
-onClick={props.test2}>
+<button id="instructionsBtn" className="btn btn-success"
+onClick={props.openModal}>
 Instructions
 </button>
 

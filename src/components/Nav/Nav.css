@@ -11,3 +11,20 @@
     text-align: right;
     font-size: -webkit-xxx-large;
 }
+
+#instructionsBtn {
+    float: left;
+    margin-left: 15px;
+    margin-top: 11px;
+}
+
+@media only screen and (max-width: 430px) {
+    .nav {
+        font-size: 40px;
+        padding-top: 20px;
+    }
+
+    #instructionsBtn {
+        margin-top: 5px;
+    }
+}

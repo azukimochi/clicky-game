@@ -146,8 +146,7 @@ class App extends Component {
             <Nav
               score={this.state.score}
               topScore={this.state.topScore}
-              test={this.test}
-              test2={this.test2}
+              openModal={this.openModal}
             />
           {this.state.defaultStyle ? 
             <Blurb 
