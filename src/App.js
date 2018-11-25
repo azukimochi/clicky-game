@@ -2,11 +2,10 @@ import React, { Component } from "react";
 import Card from "./components/Card";
 import Wrapper from "./components/Wrapper";
 import Blurb from "./components/Blurb";
-import cards from "./card.json";
+import cards from "./components/Card/card.json";
 import Nav from "./components/Nav";
 import Modal from "./components/Modal";
 import "./App.css";
-
 
 class App extends Component {
   state = {
@@ -61,6 +60,7 @@ class App extends Component {
   };
 
   shuffleArray = (removedCards, score) => {
+    this.onHit()
     const shuffledCards = this.state.cards;
     for (let i = shuffledCards.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -77,6 +77,7 @@ class App extends Component {
   endGame = score => {
     console.log("game ended and the match's score is: " + score);
     if (score > this.state.topScore) {
+      this.onMiss()
       this.setState({
         topScore: score,
         cards: cards,
@@ -85,6 +86,7 @@ class App extends Component {
         blurb: "You lose. Try again!"
       })
     } else {
+      this.onMiss()
       this.setState({
         cards: cards,
         score: 0,
@@ -94,32 +96,32 @@ class App extends Component {
     }
   }
   
-  test = event => {
-    event.preventDefault();
+  onHit = () => {
+    console.log("Hit")
     const correctStyle = {
       color: 'blue',
-      transition: 'opacity 3s',
-      opacity: 0
+      transition: 'opacity 4s',
+      opacity: 1
     }
     this.setState({
-      blurbStyle: correctStyle,
-      defaultStyle: false
+      defaultStyle: false,
+      blurbStyle: correctStyle
     })
    setTimeout(() => this.setState({
      defaultStyle: true
    }), 1000)
   }
 
-  test2 = event => {
-    event.preventDefault();
+  onMiss = () => {
+    console.log("miss")
     const correctStyle = {
       color: 'red',
-      transition: 'opacity 3s',
-      opacity: 0
+      transition: 'opacity 4s',
+      opacity: 1
     }
     this.setState({
-      blurbStyle: correctStyle,
-      defaultStyle: false
+      defaultStyle: false,
+      blurbStyle: correctStyle
     })
    setTimeout(() => this.setState({
      defaultStyle: true
@@ -132,8 +134,8 @@ class App extends Component {
     console.log("score: " + this.state.score)
     
     const defaultStyle = {
-      color: 'black',
-      opacity: 1
+      color: 'white',
+      opacity: 0
     }
 
     return (
@@ -159,8 +161,7 @@ class App extends Component {
             /> 
           }
 
-            {this.state.cards.map(card => (
-
+            {this.state.cards.map((card, index) => (
               <Card
                 validateForDupes={this.validateForDupes}
                 id={card.id}
