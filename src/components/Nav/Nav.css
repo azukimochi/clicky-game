@@ -18,6 +18,11 @@
     margin-top: 3px;
 }
 
+#instructionsBtn:hover {
+    background: olivedrab;
+    border-color: olivedrab;
+}
+
 @media only screen and (max-width: 663px) {
     .nav {
         font-size: 22px;

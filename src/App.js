@@ -32,7 +32,6 @@ class App extends Component {
   }
 
   validateForDupes = id => {
-    console.log(id);
     let numOfDupes = 0;
     for (var i = 0; i < this.state.unClickedCards.length; i++) {
       if (this.state.unClickedCards[i].id === id) {
@@ -41,19 +40,15 @@ class App extends Component {
     }
     console.log("# of dupes: " + numOfDupes)
     if (numOfDupes === 1) {
-      console.log("exists");
       this.removeCard(id);
     } else if (numOfDupes === 0) {
-      console.log("doesn't exist");
       this.endGame(this.state.score);
     }
     numOfDupes = 0;
   }
 
   removeCard = id => {
-    console.log("ID of the character to remove: " + id);
     const removedCards = this.state.unClickedCards.filter(card => card.id !== id);
-    console.log(removedCards);
     let score = this.state.score;
     score++;
     this.shuffleArray(removedCards, score);
@@ -75,7 +70,6 @@ class App extends Component {
   };
 
   endGame = score => {
-    console.log("game ended and the match's score is: " + score);
     if (score > this.state.topScore) {
       this.onMiss()
       this.setState({
@@ -95,71 +89,63 @@ class App extends Component {
       })
     }
   }
-  
+
   onHit = () => {
-    console.log("Hit")
     const correctStyle = {
-      color: 'blue',
-      transition: 'opacity 4s',
+      color: 'green',
+      transition: 'opacity 2s',
       opacity: 1
     }
     this.setState({
       defaultStyle: false,
       blurbStyle: correctStyle
     })
-   setTimeout(() => this.setState({
-     defaultStyle: true
-   }), 1000)
+    setTimeout(() => this.setState({
+      defaultStyle: true
+    }), 1000)
   }
 
   onMiss = () => {
-    console.log("miss")
     const correctStyle = {
-      color: 'red',
-      transition: 'opacity 4s',
+      color: 'coral',
+      transition: 'opacity 2s',
       opacity: 1
     }
     this.setState({
       defaultStyle: false,
       blurbStyle: correctStyle
     })
-   setTimeout(() => this.setState({
-     defaultStyle: true
-   }), 1000)
+    setTimeout(() => this.setState({
+      defaultStyle: true
+    }), 1000)
   }
 
 
   render() {
-    console.log("Clicked cards: " + JSON.stringify(this.state.unClickedCards));
-    console.log("score: " + this.state.score)
-    
     const defaultStyle = {
       color: 'white',
       opacity: 0
     }
-
     return (
       <row>
         <col-xl-12>
-
           <Wrapper>
             <Nav
               score={this.state.score}
               topScore={this.state.topScore}
               openModal={this.openModal}
             />
-          {this.state.defaultStyle ? 
-            <Blurb 
-            style={defaultStyle}
-            blurb={this.state.blurb}
-            /> 
-            :
-            <Blurb 
-            style={this.state.blurbStyle}
-            blurb={this.state.blurb}
-            /> 
-          }
-
+            {this.state.defaultStyle ?
+              <Blurb
+                style={defaultStyle}
+                blurb={this.state.blurb}
+              />
+              :
+              <Blurb
+                style={this.state.blurbStyle}
+                blurb={this.state.blurb}
+              />
+            }
             {this.state.cards.map((card, index) => (
               <Card
                 validateForDupes={this.validateForDupes}
@@ -169,17 +155,12 @@ class App extends Component {
               />
             ))}
           </Wrapper>
-
           <Modal
             modalIsOpen={this.state.modalIsOpen}
             closeModal={this.closeModal}
           />
-
-
         </col-xl-12>
       </row>
-
-
     );
   }
 }
