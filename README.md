@@ -6,4 +6,4 @@ This react application was created using React, JavaScript, CSS, HTML, and Yarn.
 
 The creator of this application is azukimochi and she can be contacted via https://github.com/azukimochi.
 
-![](https://azukimochi.github.io/clicky-game/README_images/screenshot1.png)
+![](https://github.com/azukimochi/clicky-game/blob/master/README_images/screenshot1.png)
