@@ -5,7 +5,7 @@ import Blurb from "./components/Blurb";
 import cards from "./components/Card/card.json";
 import Nav from "./components/Nav";
 import Modal from "./components/Modal";
-import "./App.css";
+import './App.css';
 
 class App extends Component {
   state = {
