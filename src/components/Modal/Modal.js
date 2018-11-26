@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 
 const customStyles = {
   content: {
+    background: '#3d3737',
     top: '50%',
     left: '50%',
     right: 'auto',
@@ -14,19 +15,19 @@ const customStyles = {
 };
 
 const modal = props => (
-
+  
   <Modal
     isOpen={props.modalIsOpen}
     onRequestClose={props.closeModal}
     style={customStyles}
     contentLabel="Example Modal"
   >
-    <div className="modalContainer">
+  <div className="modalContainer">
     <p id="close" onClick={props.closeModal}>x</p>
     <br/>
     <h2>How to Play</h2>
-    <div>Remember your childhood cartoons?</div>
-    <div>This is a fun matching game themed after them!</div>
+    <div className="modalBlurb">Remember your childhood cartoons?</div>
+    <div className="modalBlurb">This is a fun matching game themed after them!</div>
     <br/>
     <ul>
       <li>Click on unique characters to gain a point.</li>
